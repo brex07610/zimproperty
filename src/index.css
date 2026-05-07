@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-zim-green: #2C7A3E;
+  --color-zim-gold: #E8A020;
+  --color-zim-surface: #F6F8F5;
+  --color-zim-ink: #1A1A1A;
+}
+
+@layer base {
+  body {
+    @apply bg-zim-surface text-zim-ink font-sans;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+  }
+}
