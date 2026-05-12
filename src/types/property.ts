@@ -17,9 +17,11 @@ export interface Property {
   isFeatured?: boolean;
   isVerified?: boolean;
   features: string[];
+  dateListed: string; // ISO format
   // Boarding specific
   universityNearby?: string;
   distanceFromCampus?: string;
+  distanceKm?: number;
   wifiIncluded?: boolean;
   mealsIncluded?: boolean;
 }

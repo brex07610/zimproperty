@@ -16,9 +16,11 @@ import { getWhatsAppLink, generatePropertyMessage } from '../utils/whatsapp';
 
 interface PropertyCardProps {
   property: Property;
+  onCompareToggle?: (id: string) => void;
+  isComparing?: boolean;
 }
 
-export const PropertyCard = ({ property }: PropertyCardProps) => {
+export const PropertyCard = ({ property, onCompareToggle, isComparing }: PropertyCardProps) => {
   const isBoarding = property.listingType === 'Boarding';
   
   const waLink = getWhatsAppLink(
@@ -31,15 +33,39 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col h-full"
+      className={`bg-white rounded-[2rem] overflow-hidden border transition-all group flex flex-col h-full ${
+        isComparing ? 'border-zim-green ring-2 ring-zim-green/20' : 'border-gray-100 shadow-sm hover:shadow-xl'
+      }`}
     >
       {/* Image Header */}
-      <Link to={`/listing/${property.id}`} className="relative aspect-[4/3] overflow-hidden block">
-        <img 
-          src={property.image} 
-          alt={property.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+      <div className="relative aspect-[4/3] overflow-hidden">
+        <Link to={`/listing/${property.id}`} className="block h-full">
+          <motion.img 
+            src={property.image} 
+            alt={property.title}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+            className="w-full h-full object-cover"
+          />
+        </Link>
+        
+        {/* Compare Toggle Overlay */}
+        <div className="absolute bottom-4 left-4 z-10">
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              onCompareToggle?.(property.id);
+            }}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md transition-all ${
+              isComparing ? 'bg-zim-green text-white' : 'bg-white/80 text-gray-600 hover:bg-white'
+            }`}
+          >
+            <div className={`w-3 h-3 rounded border flex items-center justify-center ${isComparing ? 'bg-white border-white' : 'border-gray-400'}`}>
+              {isComparing && <div className="w-1.5 h-1.5 bg-zim-green rounded-sm" />}
+            </div>
+            {isComparing ? 'Selected' : 'Compare'}
+          </button>
+        </div>
         
         {/* Badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -65,7 +91,7 @@ export const PropertyCard = ({ property }: PropertyCardProps) => {
             Featured
           </div>
         )}
-      </Link>
+      </div>
 
       {/* Content */}
       <div className="p-5 flex flex-col flex-grow">

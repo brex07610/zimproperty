@@ -16,7 +16,8 @@ export const mockProperties: Property[] = [
     size: 2000,
     image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800',
     isFeatured: true,
-    features: ['Borehole', 'Solar', 'Pool', 'Double Garage', 'Electric Fence']
+    features: ['Borehole', 'Solar', 'Pool', 'Double Garage', 'Electric Fence'],
+    dateListed: '2024-05-01'
   },
   {
     id: 's2',
@@ -32,7 +33,8 @@ export const mockProperties: Property[] = [
     size: 4500,
     image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800',
     isFeatured: false,
-    features: ['Large Garden', 'Guest Wing', 'Stable', 'Borehole']
+    features: ['Large Garden', 'Guest Wing', 'Stable', 'Borehole'],
+    dateListed: '2024-04-15'
   },
   {
     id: 's3',
@@ -47,7 +49,8 @@ export const mockProperties: Property[] = [
     bathrooms: 2,
     size: 1500,
     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=800',
-    features: ['Veranda', 'Scenic Views', 'Solar System']
+    features: ['Veranda', 'Scenic Views', 'Solar System'],
+    dateListed: '2024-05-05'
   },
   {
     id: 's4',
@@ -60,8 +63,10 @@ export const mockProperties: Property[] = [
     listingType: 'Sale',
     bedrooms: 3,
     bathrooms: 2,
+    size: 180,
     image: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&q=80&w=800',
-    features: ['Gated Community', 'Paved', 'Solar Geyser']
+    features: ['Gated Community', 'Paved', 'Solar Geyser'],
+    dateListed: '2024-03-20'
   },
   {
     id: 's5',
@@ -74,8 +79,10 @@ export const mockProperties: Property[] = [
     listingType: 'Sale',
     bedrooms: 2,
     bathrooms: 1,
+    size: 120,
     image: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&q=80&w=800',
-    features: ['Corner Stand', 'Secure', 'Near Shops']
+    features: ['Corner Stand', 'Secure', 'Near Shops'],
+    dateListed: '2024-05-10'
   },
 
   // --- HOUSES TO RENT ---
@@ -90,8 +97,10 @@ export const mockProperties: Property[] = [
     listingType: 'Rent',
     bedrooms: 2,
     bathrooms: 2,
+    size: 95,
     image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800',
-    features: ['Elevator', '24/7 Security', 'Gym Access', 'Backup Generator']
+    features: ['Elevator', '24/7 Security', 'Gym Access', 'Backup Generator'],
+    dateListed: '2024-04-20'
   },
   {
     id: 'r2',
@@ -104,8 +113,10 @@ export const mockProperties: Property[] = [
     listingType: 'Rent',
     bedrooms: 1,
     bathrooms: 1,
+    size: 60,
     image: 'https://images.unsplash.com/photo-1449156001437-3a16d10df331?auto=format&fit=crop&q=80&w=800',
-    features: ['Solar Geyser', 'Garden', 'Security Alarm', 'Water Tank']
+    features: ['Solar Geyser', 'Garden', 'Security Alarm', 'Water Tank'],
+    dateListed: '2024-05-02'
   },
   {
     id: 'r3',
@@ -118,8 +129,10 @@ export const mockProperties: Property[] = [
     listingType: 'Rent',
     bedrooms: 3,
     bathrooms: 2,
+    size: 250,
     image: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&q=80&w=800',
-    features: ['Walled & Gated', 'Borehole', 'Tiled']
+    features: ['Walled & Gated', 'Borehole', 'Tiled'],
+    dateListed: '2024-04-10'
   },
   {
     id: 'r4',
@@ -132,8 +145,10 @@ export const mockProperties: Property[] = [
     listingType: 'Rent',
     bedrooms: 2,
     bathrooms: 1,
+    size: 85,
     image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800',
-    features: ['Fitted Kitchen', 'Balcony', 'Safe Neighborhood']
+    features: ['Fitted Kitchen', 'Balcony', 'Safe Neighborhood'],
+    dateListed: '2024-05-08'
   },
   {
     id: 'r5',
@@ -146,8 +161,10 @@ export const mockProperties: Property[] = [
     listingType: 'Rent',
     bedrooms: 3,
     bathrooms: 3,
+    size: 350,
     image: 'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&q=80&w=800',
-    features: ['Swimming Pool', 'Aircon', 'DSTV', 'Daily Maid']
+    features: ['Swimming Pool', 'Aircon', 'DSTV', 'Daily Maid'],
+    dateListed: '2024-03-30'
   },
 
   // --- STUDENT BOARDING ---
@@ -166,9 +183,12 @@ export const mockProperties: Property[] = [
     isVerified: true,
     universityNearby: 'UZ',
     distanceFromCampus: '500m',
+    distanceKm: 0.5,
     wifiIncluded: true,
     mealsIncluded: false,
-    features: ['WiFi', 'Backup Power', 'Study Desk', 'Laundry Facilities']
+    features: ['WiFi', 'Backup Power', 'Study Desk', 'Laundry Facilities'],
+    dateListed: '2024-05-09',
+    size: 15
   },
   {
     id: 'b2',
@@ -185,9 +205,12 @@ export const mockProperties: Property[] = [
     isVerified: true,
     universityNearby: 'NUST',
     distanceFromCampus: '1.2km',
+    distanceKm: 1.2,
     wifiIncluded: true,
     mealsIncluded: true,
-    features: ['Meals', 'WiFi', 'Laundry', 'Hot Water']
+    features: ['Meals', 'WiFi', 'Laundry', 'Hot Water'],
+    dateListed: '2024-04-25',
+    size: 20
   },
   {
     id: 'b3',
@@ -204,9 +227,12 @@ export const mockProperties: Property[] = [
     isVerified: true,
     universityNearby: 'MSU',
     distanceFromCampus: '800m',
+    distanceKm: 0.8,
     wifiIncluded: true,
     mealsIncluded: false,
-    features: ['Solar Power', 'WiFi', 'Kitchen Access']
+    features: ['Solar Power', 'WiFi', 'Kitchen Access'],
+    dateListed: '2024-05-01',
+    size: 18
   },
   {
     id: 'b4',
@@ -223,9 +249,12 @@ export const mockProperties: Property[] = [
     isVerified: true,
     universityNearby: 'HIT',
     distanceFromCampus: '1km',
+    distanceKm: 1,
     wifiIncluded: true,
     mealsIncluded: false,
-    features: ['Secured Parking', 'WiFi', 'Ensuite Bathroom']
+    features: ['Secured Parking', 'WiFi', 'Ensuite Bathroom'],
+    dateListed: '2024-05-04',
+    size: 22
   },
   {
     id: 'b5',
@@ -242,8 +271,11 @@ export const mockProperties: Property[] = [
     isVerified: true,
     universityNearby: 'CUT',
     distanceFromCampus: '1.5km',
+    distanceKm: 1.5,
     wifiIncluded: true,
-    features: ['Transport Provided', 'WiFi', 'Canteen']
+    features: ['Transport Provided', 'WiFi', 'Canteen'],
+    dateListed: '2024-04-30',
+    size: 25
   },
 
   // --- NEW DEVELOPMENTS ---
@@ -260,7 +292,8 @@ export const mockProperties: Property[] = [
     bathrooms: 0,
     size: 1000,
     image: 'https://images.unsplash.com/photo-1500382017468-9049fee74a62?auto=format&fit=crop&q=80&w=800',
-    features: ['Serviced', 'Ready to Build', 'ZESA Connected', 'Developer Financing']
+    features: ['Serviced', 'Ready to Build', 'ZESA Connected', 'Developer Financing'],
+    dateListed: '2024-05-02'
   },
   {
     id: 'd2',
@@ -273,8 +306,10 @@ export const mockProperties: Property[] = [
     listingType: 'Development',
     bedrooms: 3,
     bathrooms: 2,
+    size: 250,
     image: 'https://images.unsplash.com/photo-1531971589569-0d93a595c80a?auto=format&fit=crop&q=80&w=800',
-    features: ['Gated', 'Lake Views', 'Finishing to Own Taste']
+    features: ['Gated', 'Lake Views', 'Finishing to Own Taste'],
+    dateListed: '2024-04-28'
   },
   {
     id: 'd3',
@@ -287,8 +322,10 @@ export const mockProperties: Property[] = [
     listingType: 'Development',
     bedrooms: 4,
     bathrooms: 4,
+    size: 500,
     image: 'https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&q=80&w=800',
-    features: ['Borehole', 'Solar Powered', 'Infinity Pool', 'Holiday Rental ROI']
+    features: ['Borehole', 'Solar Powered', 'Infinity Pool', 'Holiday Rental ROI'],
+    dateListed: '2024-05-06'
   },
   {
     id: 'd4',
@@ -301,8 +338,10 @@ export const mockProperties: Property[] = [
     listingType: 'Development',
     bedrooms: 0,
     bathrooms: 10,
+    size: 5000,
     image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800',
-    features: ['Central Location', 'Commercial Zoning', 'Parking Garage']
+    features: ['Central Location', 'Commercial Zoning', 'Parking Garage'],
+    dateListed: '2024-04-15'
   },
   {
     id: 'd5',
@@ -317,6 +356,7 @@ export const mockProperties: Property[] = [
     bathrooms: 0,
     size: 2000,
     image: 'https://images.unsplash.com/photo-1502005229762-f155f778523c?auto=format&fit=crop&q=80&w=800',
-    features: ['Smart Infrastructure', 'Paved Roads', 'Underground Power']
+    features: ['Smart Infrastructure', 'Paved Roads', 'Underground Power'],
+    dateListed: '2024-05-11'
   }
 ];

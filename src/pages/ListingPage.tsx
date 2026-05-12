@@ -2,13 +2,19 @@ import { useState, useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { mockProperties } from '../data/mockProperties';
 import { PropertyCard } from '../components/PropertyCard';
-import { Filter, SlidersHorizontal, Search as SearchIcon, X } from 'lucide-react';
+import { SlidersHorizontal, Search as SearchIcon, X, ArrowUpDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { CompareModal } from '../components/CompareModal';
+
+type SortOption = 'price_asc' | 'price_desc' | 'newest' | 'oldest' | 'sqm_asc' | 'sqm_desc' | 'distance_asc';
 
 export const ListingPage = () => {
   const { category } = useParams();
   const [searchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [showCompareModal, setShowCompareModal] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>('newest');
   
   const categoryTitle = useMemo(() => {
     switch(category) {
@@ -21,7 +27,7 @@ export const ListingPage = () => {
   }, [category]);
 
   const filteredProperties = useMemo(() => {
-    return mockProperties.filter(p => {
+    let result = mockProperties.filter(p => {
       if (!category) return true;
       const type = p.listingType.toLowerCase();
       if (category === 'sale' && type === 'sale') return true;
@@ -30,10 +36,80 @@ export const ListingPage = () => {
       if (category === 'developments' && type === 'development') return true;
       return false;
     });
-  }, [category]);
+
+    // Apply Sorting
+    return [...result].sort((a, b) => {
+      switch (sortBy) {
+        case 'price_asc': return a.price - b.price;
+        case 'price_desc': return b.price - a.price;
+        case 'newest': return new Date(b.dateListed).getTime() - new Date(a.dateListed).getTime();
+        case 'oldest': return new Date(a.dateListed).getTime() - new Date(b.dateListed).getTime();
+        case 'sqm_asc': {
+          const aP = a.size ? a.price / a.size : Infinity;
+          const bP = b.size ? b.price / b.size : Infinity;
+          return aP - bP;
+        }
+        case 'sqm_desc': {
+          const aP = a.size ? a.price / a.size : -1;
+          const bP = b.size ? b.price / b.size : -1;
+          return bP - aP;
+        }
+        case 'distance_asc': {
+          const aD = a.distanceKm ?? Infinity;
+          const bD = b.distanceKm ?? Infinity;
+          return aD - bD;
+        }
+        default: return 0;
+      }
+    });
+  }, [category, sortBy]);
+
+  const toggleCompare = (id: string) => {
+    setCompareIds(prev => {
+      if (prev.includes(id)) return prev.filter(i => i !== id);
+      if (prev.length >= 4) return prev;
+      return [...prev, id];
+    });
+  };
+
+  const selectedProperties = mockProperties.filter(p => compareIds.includes(p.id));
 
   return (
-    <div className="bg-zim-surface min-h-screen">
+    <div className="bg-zim-surface min-h-screen pb-24">
+      {/* Comparison Drawer Trigger */}
+      <AnimatePresence>
+        {compareIds.length > 0 && (
+          <motion.div 
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-full max-w-md px-4"
+          >
+            <div className="bg-zim-ink rounded-full px-6 py-4 shadow-2xl flex items-center justify-between border border-white/10 backdrop-blur-xl">
+              <div className="flex items-center gap-3">
+                <div className="bg-zim-green w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs">
+                  {compareIds.length}
+                </div>
+                <div className="text-white text-xs font-bold uppercase tracking-widest">Selected</div>
+              </div>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={() => setCompareIds([])}
+                  className="text-white/40 hover:text-white transition-colors text-[10px] font-bold uppercase tracking-widest"
+                >
+                  Clear
+                </button>
+                <button 
+                  onClick={() => setShowCompareModal(true)}
+                  className="bg-zim-green text-white px-5 py-2 rounded-full font-bold text-xs shadow-lg shadow-zim-green/20 hover:scale-105 transition-transform"
+                >
+                  Compare
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -43,6 +119,23 @@ export const ListingPage = () => {
           </div>
           
           <div className="flex items-center gap-3">
+            <div className="relative group">
+              <select 
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="appearance-none bg-white border border-gray-100 pl-4 pr-10 py-2 rounded-xl text-sm font-semibold outline-none hover:bg-gray-50 focus:border-zim-green transition-all cursor-pointer"
+              >
+                <option value="newest">Newest Listed</option>
+                <option value="oldest">Oldest Listed</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="sqm_asc">$/sqm: Low to High</option>
+                <option value="sqm_desc">$/sqm: High to Low</option>
+                {category === 'boarding' && <option value="distance_asc">Location: Nearest to Campus</option>}
+              </select>
+              <ArrowUpDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+            </div>
+
             <div className="relative flex-grow md:w-64">
               <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input 
@@ -126,7 +219,12 @@ export const ListingPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProperties.length > 0 ? (
             filteredProperties.map(property => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard 
+                key={property.id} 
+                property={property} 
+                onCompareToggle={toggleCompare}
+                isComparing={compareIds.includes(property.id)}
+              />
             ))
           ) : (
             <div className="col-span-full py-20 text-center">
@@ -139,6 +237,14 @@ export const ListingPage = () => {
           )}
         </div>
       </div>
+
+      {showCompareModal && (
+        <CompareModal 
+          properties={selectedProperties}
+          onClose={() => setShowCompareModal(false)}
+          onRemove={toggleCompare}
+        />
+      )}
     </div>
   );
 };
